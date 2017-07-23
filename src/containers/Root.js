@@ -1,15 +1,27 @@
 import React, { Component } from 'react';
-import SquareBlock from './SquareBlock';
+import {
+  BrowserRouter as Router,
+  Route,
+  Link,
+  Switch
+} from 'react-router-dom'
+import UserPage from './UserPage';
+import PostPage from './PostPage';
 
 class Root extends Component {
+    
     render() {
-        const style = {
-            padding: '20px'
-        }
+
         return (
-            <div className="ui stackable grid" style={style}>
-                <SquareBlock />
-            </div>
+            <Router>
+                <div>
+                    <Link to="/users"><button>Пользователи</button></Link>
+                    <Link to="/posts"><button>Посты</button></Link>
+                    <hr/>
+                    <Route path='/users' component={UserPage} />
+                    <Route path='/posts' component={PostPage} />
+                </div>
+            </Router>
         )
     }
 }
