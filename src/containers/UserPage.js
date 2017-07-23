@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import {
   Link
 } from 'react-router-dom';
-import { Table } from 'semantic-ui-react';
+import UsersTable from '../components/UsersTable';
 import {store} from '../redux/store';
 import {addUsers} from '../redux/actions';
+import { Input } from 'semantic-ui-react'
 
 class UserPage extends Component {
 
@@ -13,46 +14,29 @@ class UserPage extends Component {
     }
 
     componentDidMount() {
-        store.subscribe(() => { console.log(store.getState().users) });
+        
         fetch('https://jsonplaceholder.typicode.com/users')
         .then(res => res.json())
         .then(data => {
             store.dispatch(addUsers(data));
+            this.setState({ users: store.getState().users[0]})
         })
+    }
+
+    handleFindName = (e) => {
+        let inputName = e.target.value;
+        this.setState({ users: store.getState().users[0].filter(user => {
+            let match = user.name.toLowerCase().indexOf(inputName.toLowerCase())
+            return (match !== -1)
+        }) })
     }
 
     render() {
         return (
             <div>
-                <Link to="/posts">Посты</Link>
-                <Table singleLine>
-                <Table.Header>
-                    <Table.Row>
-                        <Table.HeaderCell>Имя</Table.HeaderCell>
-                        <Table.HeaderCell>Username</Table.HeaderCell>
-                        <Table.HeaderCell>E-mail</Table.HeaderCell>
-                        <Table.HeaderCell>Телефон</Table.HeaderCell>
-                        <Table.HeaderCell>Адрес</Table.HeaderCell>
-                    </Table.Row>
-                </Table.Header>
-
-                <Table.Body>
-                    {
-                        this.state.users.map((user) => {
-                            return (<Table.Row key={user.id}>
-                                <Table.Cell>{user.name}</Table.Cell>
-                                <Table.Cell>{user.username}</Table.Cell>
-                                <Table.Cell>{user.email}</Table.Cell>
-                                <Table.Cell>{user.phone}</Table.Cell>
-                                <Table.Cell>{user.address.street}</Table.Cell>
-                            </Table.Row> )
-                        })
-                    }
-                </Table.Body>
-                </Table>
-                <div>
-                    
-                </div>
+                {/*<Link to="/posts">Посты</Link>*/}
+                <Input onChange={this.handleFindName} placeholder='Поиск по имени'/>
+                <UsersTable users={this.state.users} />
             </div>
         )
     }
