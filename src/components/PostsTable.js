@@ -4,9 +4,18 @@ import {store} from '../redux/store';
 import {addPosts, addPostById} from '../redux/actions';
 
 class PostsTable extends Component {
+    
+    addToStar = (id) => {
+        this.props.handleAddToStar(id);
+    }
+
+    removeFromStar = (id) => {
+        this.props.handleRemoveFromStar(id);
+    }
+
     render() {
         return (
-            <Table singleLine>
+            <Table singleLine selectable>
                 <Table.Header>
                     <Table.Row>
                     <Table.HeaderCell></Table.HeaderCell>
@@ -19,8 +28,12 @@ class PostsTable extends Component {
                     {this.props.posts.map((post) => {
                         return (
                             <Table.Row key={post.id}>
-                                <Table.Cell></Table.Cell>
-                                <Table.Cell>{this.props.users[post.userId].name}</Table.Cell>
+                                {
+                                    this.props.addToStar ?
+                                    <Table.Cell><button onClick={() => {this.addToStar(post.id)}}>Добавить в избранное</button></Table.Cell> :
+                                    <Table.Cell><button onClick={() => {this.removeFromStar(post.id)}}>Удалить из избранного</button></Table.Cell>
+                                }
+                                <Table.Cell>{this.props.users[post.userId-1].name}</Table.Cell>
                                 <Table.Cell>{post.title}</Table.Cell>
                             </Table.Row>
                         )

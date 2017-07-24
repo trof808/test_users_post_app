@@ -3,7 +3,8 @@ import _ from 'lodash';
 const initialState = {
     users: [],
     posts: [],
-    postsToShow: []
+    postsToShow: [],
+    starPosts: []
 }
 
 
@@ -36,6 +37,18 @@ export const postsReducer = (state = initialState, action) => {
             return { 
                 ...state,
                 postsToShow: []
+            }
+        case 'ADD_TO_STAR':
+            const postToStar = _.filter(state.posts, post => post.id == action.id)
+            return { 
+                ...state,
+                starPosts: state.starPosts.concat(postToStar)
+            }
+        case 'REMOVE_FROM_STAR':
+            const starPostRemove = _.filter(state.starPosts, post => post.id !== action.id)
+            return { 
+                ...state,
+                starPosts: starPostRemove
             }
         default:
             return state;
