@@ -5,19 +5,17 @@ import {
 import {store} from '../redux/store';
 import PostsTable from '../components/PostsTable';
 import {addToStar, removeFromStar} from '../redux/actions';
-
+import { Modal } from 'semantic-ui-react';
 
 class PostPage extends Component {
 
     state = {
         posts: [],
         starPosts: [],
-        users: []
+        users: [],
+        open: false,
+        postId: 1
     }
-
-    // componentDidMount() {
-    //     store.subscribe(() => {this.setState({ starPosts: store.getState().postsReducer.starPosts })})
-    // }
 
     componentWillMount() {
         this.setState({ 
@@ -37,15 +35,27 @@ class PostPage extends Component {
         // store.subscribe(() => {this.setState({ starPosts: store.getState().postsReducer.starPosts })})
         this.setState({ starPosts: store.getState().postsReducer.starPosts })
     }
-    
+    openModal = (id) => {
+        this.setState({ open: true, postId: id })
+    }
+    close = () => {
+        this.setState({ open: false })
+    }
     render() {
         return (
             <div>
-                <Link to="/users">Пользователи</Link>
                 <h2>Избранные посты</h2>
-                <PostsTable posts={this.state.starPosts} users={this.state.users} handleRemoveFromStar={this.removeFromStar} addToStar={false} />
+                <PostsTable posts={this.state.starPosts} users={this.state.users} handleRemoveFromStar={this.removeFromStar} addToStar={false} openModal={this.openModal} />
                 <h2>Выбранные посты</h2>
-                <PostsTable posts={this.state.posts} users={this.state.users} handleAddToStar={this.addToStar} addToStar={true} />
+                <PostsTable posts={this.state.posts} users={this.state.users} handleAddToStar={this.addToStar} addToStar={true} openModal={this.openModal} />
+                <Modal size='small' open={this.state.open} onClose={this.close}>
+                    <Modal.Header>
+                        {this.state.posts[this.state.postId-1].title}
+                    </Modal.Header>
+                    <Modal.Content>
+                        <p>{this.state.posts[this.state.postId-1].body}</p>
+                    </Modal.Content>
+                </Modal>
             </div>
         )
     }
