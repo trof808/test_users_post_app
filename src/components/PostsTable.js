@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Table, Checkbox, Icon } from 'semantic-ui-react';
+import { Table, Checkbox, Icon, Button } from 'semantic-ui-react';
 import {store} from '../redux/store';
 import {addPosts, addPostById} from '../redux/actions';
 
@@ -34,8 +34,8 @@ class PostsTable extends Component {
                             <Table.Row key={post.id}>
                                 {
                                     this.props.addToStar ?
-                                    <Table.Cell><button onClick={() => {this.addToStar(post.id)}}>Добавить в избранное</button></Table.Cell> :
-                                    <Table.Cell><button onClick={() => {this.removeFromStar(post.id)}}>Удалить из избранного</button></Table.Cell>
+                                    <Table.Cell><Button compact color='yellow' onClick={() => {this.addToStar(post.id)}}>Добавить в избранное</Button></Table.Cell> :
+                                    <Table.Cell><Button compact onClick={() => {this.removeFromStar(post.id)}}>Удалить из избранного</Button></Table.Cell>
                                 }
                                 <Table.Cell onClick={() => {this.props.openModal(post.id)}}>{this.props.users[post.userId-1].name}</Table.Cell>
                                 <Table.Cell onClick={() => {this.props.openModal(post.id)}}>{post.title}</Table.Cell>

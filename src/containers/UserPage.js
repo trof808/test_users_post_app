@@ -97,11 +97,4 @@ class UserPage extends Component {
     }
 }
 
-// const mapStateProps = (store) => {
-//     return {
-//         users: store.usersReducer
-//     }
-// }
-
-// export default connect(mapStateProps)(UserPage);
 export default UserPage;

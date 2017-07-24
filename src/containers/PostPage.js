@@ -49,10 +49,10 @@ class PostPage extends Component {
                 <PostsTable posts={this.state.posts} users={this.state.users} handleAddToStar={this.addToStar} addToStar={true} openModal={this.openModal} />
                 <Modal size='small' open={this.state.open} onClose={this.close}>
                     <Modal.Header>
-                        {this.state.posts[this.state.postId-1].title}
+                        {store.getState().postsReducer.posts[this.state.postId-1].title}
                     </Modal.Header>
                     <Modal.Content>
-                        <p>{this.state.posts[this.state.postId-1].body}</p>
+                        <p>{store.getState().postsReducer.posts[this.state.postId-1].body}</p>
                     </Modal.Content>
                 </Modal>
             </div>
