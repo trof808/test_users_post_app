@@ -6,7 +6,6 @@ import UsersTable from '../components/UsersTable';
 import {store} from '../redux/store';
 import {addUsers, addPosts} from '../redux/actions';
 import { Input } from 'semantic-ui-react'
-import { connect } from 'react-redux';
 
 class UserPage extends Component {
 
