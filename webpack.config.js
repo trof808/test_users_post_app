@@ -12,12 +12,6 @@ module.exports = {
         filename: 'bundle.js',
         publicPath: '/static/'
     },
-    devServer: {
-        proxy: [{
-            path: '/api/*',
-            target: 'http://localhost:9000'
-        }]
-    },
     module: {
         loaders: [
             {
