@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Table, Checkbox, Icon } from 'semantic-ui-react';
+import { Table, Checkbox, Icon, Button } from 'semantic-ui-react';
 import {store} from '../redux/store';
 import {addPosts, addPostById, removeAllFromShow, removePostById} from '../redux/actions';
 
@@ -31,34 +31,44 @@ class UsersTable extends Component {
                     <Table.Row>
                         <Table.HeaderCell />
                         <Table.HeaderCell onClick={() => {this.setState({ filterBy: 'name', filterDirection: !this.state.filterDirection }); this.handleSort()}}>
+                            <Button>
                             Имя 
                             {
                                 this.state.filterBy === 'name' ? <Icon name={ this.state.filterDirection ? 'caret down' : 'caret up'} /> : ''
                             }
+                            </Button>
                         </Table.HeaderCell>
                         <Table.HeaderCell onClick={() => {this.setState({ filterBy: 'username', filterDirection: !this.state.filterDirection }); this.handleSort()}}>
+                            <Button>
                             Username
                             {
                                 this.state.filterBy === 'username' ? <Icon name={ this.state.filterDirection ? 'caret down' : 'caret up'} /> : ''
                             }
+                            </Button>
                         </Table.HeaderCell>
                         <Table.HeaderCell onClick={() => {this.setState({ filterBy: 'email', filterDirection: !this.state.filterDirection }); this.handleSort()}}>
+                            <Button>
                             E-mail
                             {
                                 this.state.filterBy === 'email' ? <Icon name={ this.state.filterDirection ? 'caret down' : 'caret up'} /> : ''
                             }
+                            </Button>
                         </Table.HeaderCell>
                         <Table.HeaderCell onClick={() => {this.setState({ filterBy: 'tel', filterDirection: !this.state.filterDirection }); this.handleSort()}}>
+                            <Button>
                             Телефон
                             {
                                 this.state.filterBy === 'tel' ? <Icon name={ this.state.filterDirection ? 'caret down' : 'caret up'} /> : ''
                             }
+                            </Button>
                         </Table.HeaderCell>
                         <Table.HeaderCell onClick={() => {this.setState({ filterBy: 'address', filterDirection: !this.state.filterDirection }); this.handleSort()}}>
+                            <Button>
                             Адрес
                             {
                                 this.state.filterBy === 'address' ? <Icon name={ this.state.filterDirection ? 'caret down' : 'caret up'} /> : ''
                             }
+                            </Button>
                         </Table.HeaderCell>
                     </Table.Row>
                 </Table.Header>

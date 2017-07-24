@@ -32,7 +32,6 @@ class PostPage extends Component {
 
     removeFromStar = (id) => {
         store.dispatch(removeFromStar(id))
-        // store.subscribe(() => {this.setState({ starPosts: store.getState().postsReducer.starPosts })})
         this.setState({ starPosts: store.getState().postsReducer.starPosts })
     }
     openModal = (id) => {

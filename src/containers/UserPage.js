@@ -32,7 +32,6 @@ class UserPage extends Component {
     render() {
         return (
             <div>
-                {/*<Link to="/posts">Посты</Link>*/}
                 <Input onChange={this.handleFindName} placeholder='Поиск по имени'/>
                 <UsersTable users={this.state.users} onSort={this.handleSort}/>
             </div>

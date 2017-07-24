@@ -6,7 +6,6 @@ import {
   Link
 } from 'react-router-dom'
 import Root from './containers/Root'
-import { Provider } from 'react-redux';
 
 const App = () => {
     return(
