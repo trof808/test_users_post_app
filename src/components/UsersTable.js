@@ -6,37 +6,40 @@ class UsersTable extends Component {
         filterBy: '',
         filterDirection: false
     }
+    handleSort = () => {
+        this.props.onSort(this.state.filterBy, this.state.filterDirection);
+    }
     render() {
         return (
             <Table singleLine>
                 <Table.Header>
                     <Table.Row>
                         <Table.HeaderCell />
-                        <Table.HeaderCell onClick={() => {this.setState({ filterBy: 'name', filterDirection: !this.state.filterDirection })}}>
+                        <Table.HeaderCell onClick={() => {this.setState({ filterBy: 'name', filterDirection: !this.state.filterDirection }); this.handleSort()}}>
                             Имя 
                             {
                                 this.state.filterBy === 'name' ? <Icon name={ this.state.filterDirection ? 'caret down' : 'caret up'} /> : ''
                             }
                         </Table.HeaderCell>
-                        <Table.HeaderCell onClick={() => {this.setState({ filterBy: 'username', filterDirection: !this.state.filterDirection })}}>
+                        <Table.HeaderCell onClick={() => {this.setState({ filterBy: 'username', filterDirection: !this.state.filterDirection }); this.handleSort()}}>
                             Username
                             {
                                 this.state.filterBy === 'username' ? <Icon name={ this.state.filterDirection ? 'caret down' : 'caret up'} /> : ''
                             }
                         </Table.HeaderCell>
-                        <Table.HeaderCell onClick={() => {this.setState({ filterBy: 'email', filterDirection: !this.state.filterDirection })}}>
+                        <Table.HeaderCell onClick={() => {this.setState({ filterBy: 'email', filterDirection: !this.state.filterDirection }); this.handleSort()}}>
                             E-mail
                             {
                                 this.state.filterBy === 'email' ? <Icon name={ this.state.filterDirection ? 'caret down' : 'caret up'} /> : ''
                             }
                         </Table.HeaderCell>
-                        <Table.HeaderCell onClick={() => {this.setState({ filterBy: 'tel', filterDirection: !this.state.filterDirection })}}>
+                        <Table.HeaderCell onClick={() => {this.setState({ filterBy: 'tel', filterDirection: !this.state.filterDirection }); this.handleSort()}}>
                             Телефон
                             {
                                 this.state.filterBy === 'tel' ? <Icon name={ this.state.filterDirection ? 'caret down' : 'caret up'} /> : ''
                             }
                         </Table.HeaderCell>
-                        <Table.HeaderCell onClick={() => {this.setState({ filterBy: 'address', filterDirection: !this.state.filterDirection })}}>
+                        <Table.HeaderCell onClick={() => {this.setState({ filterBy: 'address', filterDirection: !this.state.filterDirection }); this.handleSort()}}>
                             Адрес
                             {
                                 this.state.filterBy === 'address' ? <Icon name={ this.state.filterDirection ? 'caret down' : 'caret up'} /> : ''
