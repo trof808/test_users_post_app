@@ -6,12 +6,17 @@ import {
   Link
 } from 'react-router-dom'
 import Root from './containers/Root'
+import { Provider } from 'react-redux';
+import {store} from './redux/store';
 
 const App = () => {
     return(
-        <Router>
-            <Route exact path='/' component={Root} />
-        </Router>
+        <Provider store={store}>
+            <Router>
+                <Route exact path='/' component={Root} />
+            </Router>
+        </Provider>
+        
     )
 }
 

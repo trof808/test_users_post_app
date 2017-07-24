@@ -4,8 +4,9 @@ import {
 } from 'react-router-dom';
 import UsersTable from '../components/UsersTable';
 import {store} from '../redux/store';
-import {addUsers} from '../redux/actions';
+import {addUsers, addPosts} from '../redux/actions';
 import { Input } from 'semantic-ui-react'
+import { connect } from 'react-redux';
 
 class UserPage extends Component {
 
@@ -19,13 +20,29 @@ class UserPage extends Component {
         .then(res => res.json())
         .then(data => {
             store.dispatch(addUsers(data));
-            this.setState({ users: store.getState().users[0]})
+            this.setState({ users: store.getState().usersReducer.users})
         })
+
+        fetch('https://jsonplaceholder.typicode.com/posts')
+        .then(res => res.json())
+        .then(data => {
+            store.dispatch(addPosts(data));
+        })
+    }
+
+    render() {
+        return (
+            <div>
+                {/*<Link to="/posts">Посты</Link>*/}
+                <Input onChange={this.handleFindName} placeholder='Поиск по имени'/>
+                <UsersTable users={this.state.users} onSort={this.handleSort}/>
+            </div>
+        )
     }
 
     handleFindName = (e) => {
         let inputName = e.target.value;
-        this.setState({ users: store.getState().users[0].filter(user => {
+        this.setState({ users: store.getState().usersReducer.users.filter(user => {
             let match = user.name.toLowerCase().indexOf(inputName.toLowerCase())
             return (match !== -1)
         }) })
@@ -80,16 +97,13 @@ class UserPage extends Component {
             }
         })});
     }
-
-    render() {
-        return (
-            <div>
-                {/*<Link to="/posts">Посты</Link>*/}
-                <Input onChange={this.handleFindName} placeholder='Поиск по имени'/>
-                <UsersTable users={this.state.users} onSort={this.handleSort}/>
-            </div>
-        )
-    }
 }
 
+// const mapStateProps = (store) => {
+//     return {
+//         users: store.usersReducer
+//     }
+// }
+
+// export default connect(mapStateProps)(UserPage);
 export default UserPage;

@@ -1,13 +1,28 @@
 import React, { Component } from 'react';
 import { Table, Checkbox, Icon } from 'semantic-ui-react';
+import {store} from '../redux/store';
+import {addPosts, addPostById, removeAllFromShow, removePostById} from '../redux/actions';
 
 class UsersTable extends Component {
     state = {
         filterBy: '',
-        filterDirection: false
+        filterDirection: false,
+        posts: []
+    }
+    componentDidMount() {
+        store.subscribe(() => {console.log(store.getState().postsReducer.posts)})
+        store.subscribe(() => { console.log(store.getState().postsReducer.postsToShow) })
+        store.dispatch(removeAllFromShow());
     }
     handleSort = () => {
         this.props.onSort(this.state.filterBy, this.state.filterDirection);
+    }
+    handleCheck = (e) => {
+        if(e.target.checked) {
+            store.dispatch(addPostById(parseInt(e.target.name)))
+        } else {
+            store.dispatch(removePostById(parseInt(e.target.name)))
+        }
     }
     render() {
         return (
@@ -54,7 +69,7 @@ class UsersTable extends Component {
                             return (
                             <Table.Row key={user.id}>
                                 <Table.Cell collapsing>
-                                    <Checkbox />
+                                    <input type="checkbox" name={`${user.id}`} onChange={this.handleCheck} />
                                 </Table.Cell>
                                 <Table.Cell>{user.name}</Table.Cell>
                                 <Table.Cell>{user.username}</Table.Cell>
