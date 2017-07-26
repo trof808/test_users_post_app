@@ -14,20 +14,9 @@ class UserPage extends Component {
     }
 
     componentDidMount() {
-        
-        fetch('https://jsonplaceholder.typicode.com/users')
-        .then(res => res.json())
-        .then(data => {
-            store.dispatch(addUsers(data));
-            this.setState({ users: store.getState().usersReducer.users})
-        })
-
-        fetch('https://jsonplaceholder.typicode.com/posts')
-        .then(res => res.json())
-        .then(data => {
-            store.dispatch(addPosts(data));
-        })
+        this.setState({ users: store.getState().usersReducer.users})
     }
+
 
     render() {
         return (
